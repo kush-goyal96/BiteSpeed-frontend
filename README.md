@@ -1,12 +1,90 @@
-# React + Vite
+# BiteSpeed WhatsApp Flow Editor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, interactive flow-based editor for designing WhatsApp message flows. Built with React, Vite, [@xyflow/react](https://xyflow.dev/), and styled using Tailwind CSS.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Drag-and-drop node creation**: Easily add new message nodes to your flow.
+- **Editable node messages**: Click a node to edit its message in the settings panel.
+- **Connect nodes visually**: Draw connections between nodes to define message sequences.
+- **Responsive, clean UI**: Styled with Tailwind CSS for a modern look.
+- **Validation**: Prevents saving flows with invalid structure (e.g., too few nodes, multiple root nodes).
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v16 or higher recommended)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+
+### Installation
+
+1. **Clone the repository:**
+   ```sh
+   git clone <your-repo-url>
+   cd BiteSpeed
+   ```
+2. **Install dependencies:**
+   ```sh
+   npm install
+   # or
+   yarn install
+   ```
+
+### Running the App
+
+Start the development server:
+
+```sh
+npm run dev
+# or
+yarn dev
+```
+
+Open [http://localhost:5173](http://localhost:5173) in your browser to view the app.
+
+### Building for Production
+
+To build the app for production:
+
+```sh
+npm run build
+# or
+yarn build
+```
+
+To preview the production build:
+
+```sh
+npm run preview
+# or
+yarn preview
+```
+
+## Project Structure
+
+- `src/`
+  - `App.jsx` – Main application logic and flow rendering
+  - `components/` – Custom node, panel, and settings components
+  - `index.css` – Tailwind CSS imports
+- `public/` – Static assets
+
+## Tech Stack
+
+- [React](https://react.dev/)
+- [Vite](https://vitejs.dev/)
+- [@xyflow/react](https://xyflow.dev/) (for flow rendering)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [React Icons](https://react-icons.github.io/react-icons/)
+
+## Contributing
+
+Pull requests and issues are welcome! Please open an issue to discuss your ideas or report bugs.
+
+## License
+
+[MIT](LICENSE)
+
+---
+
+_This project was bootstrapped with [Vite](https://vitejs.dev/) and inspired by modern flow-based editors._

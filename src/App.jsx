@@ -15,21 +15,6 @@ import {
 
 import "@xyflow/react/dist/style.css";
 
-// const initialNodes = [
-//   {
-//     id: "node-1",
-//     type: "textUpdater",
-//     position: { x: 0, y: 0 },
-//     data: { value: 123 },
-//   },
-//   {
-//     id: "2",
-//     type: "textUpdater",
-//     position: { x: 0, y: 100 },
-//     data: { label: "2" },
-//   },
-// ];
-// const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
 
 export default function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -98,14 +83,12 @@ export default function App() {
     }));
   };
 
-  // Save handler with validation logic
   const handleSave = () => {
-    setSuccess(""); // Clear previous success
+    setSuccess("");     
     if (nodes.length <= 1) {
       setError("Please add at least 2 nodes");
       return;
     }
-    // Find nodes with no incoming edges (empty target handles)
     const nodeIdsWithIncoming = new Set(edges.map((e) => e.target));
     const nodesWithNoIncoming = nodes.filter(
       (n) => !nodeIdsWithIncoming.has(n.id)
@@ -116,7 +99,6 @@ export default function App() {
     }
     setError("");
     setSuccess("Saved successfully!");
-    // Proceed with save logic here
   };
 
   const nodeTypes = {
@@ -127,6 +109,11 @@ export default function App() {
     <div className="w-screen h-screen flex flex-col">
       <div className="w-full flex items-center justify-between px-8 py-2 bg-white border-b border-gray-200 z-10">
         <div className="flex-1 flex justify-center">
+        {!error && !success && (
+            <div className=" px-6 py-2 text-center text-xl font-semibold text-gray-800">
+              BiteSpeed WhatsApp Flow Editor
+            </div>
+          )}
           {error && (
             <div className="bg-red-100 text-red-700 px-6 py-2 rounded shadow text-center">
               {error}
