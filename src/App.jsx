@@ -3,6 +3,7 @@ import { TextUpdaterNode } from "./components/TextUpdaterNode";
 import { NodesPanel } from "./components/NodesPanel";
 import SettingsPanel from "./components/SettingsPanel";
 import { AnimatePresence, motion } from "framer-motion";
+import { toast } from "sonner";
 import {
   ReactFlow,
   MiniMap,
@@ -29,6 +30,7 @@ export default function App() {
 
   useEffect(() => {
     if (error) {
+      toast.error(error);
       const timer = setTimeout(() => setError(""), 3000);
       return () => clearTimeout(timer);
     }
@@ -36,6 +38,7 @@ export default function App() {
 
   useEffect(() => {
     if (success) {
+      toast.success(success);
       const timer = setTimeout(() => setSuccess(""), 3000);
       return () => clearTimeout(timer);
     }
@@ -126,16 +129,6 @@ export default function App() {
           {!error && !success && (
             <div className=" px-6 py-2 text-center text-xl font-semibold text-gray-800">
               BiteSpeed WhatsApp Flow Editor
-            </div>
-          )}
-          {error && (
-            <div className="bg-red-100 text-red-700 px-6 py-2 rounded shadow text-center">
-              {error}
-            </div>
-          )}
-          {!error && success && (
-            <div className="bg-green-100 text-green-700 px-6 py-2 rounded shadow text-center">
-              {success}
             </div>
           )}
         </div>
