@@ -100,6 +100,18 @@ export default function App() {
     }));
   };
 
+  const handleDeleteNode = () => {
+    if (selectedNode) {
+      setNodes((nds) => nds.filter((n) => n.id !== selectedNode.id));
+      setEdges((eds) =>
+        eds.filter(
+          (e) => e.source !== selectedNode.id && e.target !== selectedNode.id
+        )
+      );
+      setSelectedNode(null);
+    }
+  };
+
   const handleSave = () => {
     setSuccess("");
     if (nodes.length <= 1) {
@@ -126,11 +138,9 @@ export default function App() {
     <div className="w-screen h-screen flex flex-col">
       <div className="w-full flex items-center justify-between px-8 py-2 bg-white border-b border-gray-200 z-10">
         <div className="flex-1 flex justify-center">
-          {!error && !success && (
-            <div className=" px-6 py-2 text-center text-xl font-semibold text-gray-800">
-              BiteSpeed WhatsApp Flow Editor
-            </div>
-          )}
+          <div className=" px-6 py-2 text-center text-xl font-semibold text-gray-800">
+            BiteSpeed WhatsApp Flow Editor
+          </div>
         </div>
         <button
           onClick={handleSave}
@@ -174,6 +184,7 @@ export default function App() {
                 node={selectedNode}
                 onChange={handleNodeMessageChange}
                 onClose={() => setSelectedNode(null)}
+                onDelete={handleDeleteNode}
               />
             </motion.div>
           ) : (

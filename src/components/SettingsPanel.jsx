@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function SettingsPanel({ node, onChange, onClose }) {
+export default function SettingsPanel({ node, onChange, onClose, onDelete }) {
   return (
     <div className="w-full p-4 bg-white border-l border-gray-200 h-full flex flex-col">
       <button
@@ -19,6 +19,12 @@ export default function SettingsPanel({ node, onChange, onClose }) {
           className="w-full min-h-[80px] mt-2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-200 text-sm resize-none"
         />
       </label>
+      <button
+        onClick={onDelete}
+        className="bg-red-500 text-white px-4 py-2 rounded mt-4"
+      >
+        Delete Node
+      </button>
     </div>
   );
 }
