@@ -13,8 +13,8 @@ export function TextUpdaterNode({ data }) {
 
       <div className="p-2 min-h-[40px]">
         <div className="text-sm text-gray-800 whitespace-pre-line break-words">
-          {data.label || (
-            <span className="text-gray-400 italic">No message</span>
+          {data.message || (
+            <span className="text-gray-400 italic">Click to edit</span>
           )}
         </div>
       </div>

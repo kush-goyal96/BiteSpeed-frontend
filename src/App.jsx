@@ -1,7 +1,8 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState, useEffect } from "react";
 import { TextUpdaterNode } from "./components/TextUpdaterNode";
 import { NodesPanel } from "./components/NodesPanel";
 import SettingsPanel from "./components/SettingsPanel";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   ReactFlow,
   MiniMap,
@@ -15,7 +16,6 @@ import {
 
 import "@xyflow/react/dist/style.css";
 
-
 export default function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
@@ -26,6 +26,20 @@ export default function App() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [selectedNode, setSelectedNode] = useState(null);
+
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => setError(""), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (success) {
+      const timer = setTimeout(() => setSuccess(""), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [success]);
 
   const onConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
@@ -57,7 +71,7 @@ export default function App() {
         id: `${type}-${Date.now()}`,
         type,
         position,
-        data: { label: `${type} node` },
+        data: { label: `${type} node`, message: "" },
       };
 
       setNodes((nds) => nds.concat(newNode));
@@ -69,22 +83,22 @@ export default function App() {
     setSelectedNode(node);
   }, []);
 
-  const handleNodeLabelChange = (newLabel) => {
+  const handleNodeMessageChange = (newMessage) => {
     setNodes((nds) =>
       nds.map((n) =>
         n.id === selectedNode.id
-          ? { ...n, data: { ...n.data, label: newLabel } }
+          ? { ...n, data: { ...n.data, message: newMessage } }
           : n
       )
     );
     setSelectedNode((node) => ({
       ...node,
-      data: { ...node.data, label: newLabel },
+      data: { ...node.data, message: newMessage },
     }));
   };
 
   const handleSave = () => {
-    setSuccess("");     
+    setSuccess("");
     if (nodes.length <= 1) {
       setError("Please add at least 2 nodes");
       return;
@@ -109,7 +123,7 @@ export default function App() {
     <div className="w-screen h-screen flex flex-col">
       <div className="w-full flex items-center justify-between px-8 py-2 bg-white border-b border-gray-200 z-10">
         <div className="flex-1 flex justify-center">
-        {!error && !success && (
+          {!error && !success && (
             <div className=" px-6 py-2 text-center text-xl font-semibold text-gray-800">
               BiteSpeed WhatsApp Flow Editor
             </div>
@@ -153,15 +167,35 @@ export default function App() {
             <Background variant="dots" gap={12} size={1} />
           </ReactFlow>
         </div>
-        {selectedNode ? (
-          <SettingsPanel
-            node={selectedNode}
-            onChange={handleNodeLabelChange}
-            onClose={() => setSelectedNode(null)}
-          />
-        ) : (
-          <NodesPanel />
-        )}
+        <AnimatePresence mode="wait">
+          {selectedNode ? (
+            <motion.div
+              key="settings"
+              initial={{ x: 100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: 100, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="h-full w-1/5"
+            >
+              <SettingsPanel
+                node={selectedNode}
+                onChange={handleNodeMessageChange}
+                onClose={() => setSelectedNode(null)}
+              />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="nodes"
+              initial={{ x: 100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: 100, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="h-full w-1/5"
+            >
+              <NodesPanel />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

@@ -18,7 +18,7 @@ export function NodesPanel() {
   };
 
   return (
-    <div className="bg-white border-l border-gray-200 w-1/5 h-full overflow-y-auto shadow-sm">
+    <div className="bg-white border-l border-gray-200 w-full h-full overflow-y-auto shadow-sm">
       <div className="p-4 border-b border-gray-200">
         <h2 className="text-lg font-semibold text-gray-800">Nodes</h2>
         <p className="text-sm text-gray-600 mt-1">Drag and drop to add nodes</p>
