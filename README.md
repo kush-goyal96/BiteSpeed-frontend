@@ -8,6 +8,7 @@ A modern, interactive flow-based editor for designing WhatsApp message flows. Bu
 - **Editable node messages**: Click a node to edit its message in the settings panel.
 - **Connect nodes visually**: Draw connections between nodes to define message sequences.
 - **Responsive, clean UI**: Styled with Tailwind CSS for a modern look.
+- **Delete nodes**: Select a node and delete it using the settings panel or the Delete/Backspace key.
 - **Validation**: Prevents saving flows with invalid structure (e.g., too few nodes, multiple root nodes).
 
 ## Getting Started
